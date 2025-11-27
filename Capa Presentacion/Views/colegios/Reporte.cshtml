@@ -1,0 +1,71 @@
+﻿@model  List<Colegios>
+@{
+    ViewBag.Title = "Reporte";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* SOLUCIONA PROBLEMA DE SOLAPAMIENTO EN TABLAS <table /> */
+    thead {
+        display: table-header-group
+    }
+
+    tfoot {
+        display: table-row-group
+    }
+
+    tr {
+        page-break-inside: avoid
+    }
+</style>
+
+<div class="row bg-personal" style="text-align:center">
+
+
+    <div class="image-container">
+        <img class="logo Center" id="img1" src="@Href("~/Resources/Images/american-college-nicaragua-web.png")" alt="Logo">
+        <h2 class="Center">LISTA DE COLEGIOS</h2>
+    </div>
+
+    <p class="Salto"></p>
+    <table class="table table-striped" border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                @* <th>Observaciones</th>*@
+                <th>Observacion</th>
+                @*<th>Título </th>*@
+                @*<th>PlanEstudio</th>*@
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Observacion)
+                    </td>
+                    @*<td>
+                            @Html.CheckBoxFor(modelItem => item.Requerido, new { @class = "form-check-input" })
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoPlanEstudio.Nombre)
+                        </td>*@
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+@if (!ViewBag.IsPDF)
+{
+    <p>
+        <a href="@Url.Action("Print", "Colegios")" class="btn btn-primary">Descargar PDF</a>
+    </p>
+}
