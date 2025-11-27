@@ -1,0 +1,80 @@
+﻿@model List<Ciclo>
+@{
+    ViewBag.Title = "Reporte";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* SOLUCIONA PROBLEMA DE SOLAPAMIENTO EN TABLAS <table /> */
+    thead {
+        display: table-header-group
+    }
+
+    tfoot {
+        display: table-row-group
+    }
+
+    tr {
+        page-break-inside: avoid
+    }
+</style>
+
+<div class="row bg-personal" >
+
+
+    <div class="image-container">
+        <img class="logo Center" id="img1" src="@Href("~/Resources/Images/american-college-nicaragua-web.png")" alt="Logo">
+        <h2 class="Center" style="text-align:center">LISTA DE CICLO</h2>
+    </div>
+
+
+    <p class="Salto"></p>
+    <table class="table table-striped">
+        <thead>
+            <tr style="text-align:center">
+                @*<th>Código</th>*@
+                <th>Nombre</th>
+                @*<th>Facultad</th>
+                <th>Duración</th>
+                <th>Título </th>
+                <th>Tipo Plan</th>*@
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Facultad.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duracion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoPlanEstudio.Nombre)
+                    </td>*@
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+@if (!ViewBag.IsPDF)
+{
+    <p>
+        <a href="@Url.Action("Print", "Ciclo")" class="btn btn-primary">Descargar PDF</a>
+    </p>
+}
+
+

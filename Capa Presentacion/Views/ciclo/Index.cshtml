@@ -1,0 +1,110 @@
+﻿@model IEnumerable<CapaPresentación.Ciclo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row m-4">
+  <div class="col-sm-12">
+    <div class="card">
+        <div class="card-header container-fluid">
+            <div class="row">
+                <div class="col-md-10">
+                    <h2>LISTA DE CICLO</h2>
+                </div>
+                <div class="col-md-2 float-right">
+                    @Html.ActionLink("Agregar Nuevo", "Create", "", new { @class = "btn btn-success" })
+
+                </div>
+                <p class="Salto"></p>
+            </div>
+            <p class="Salto"></p>
+            @*Bloque de código asignación busqueda creado 209072024 *@
+            <div class="cols-md-10 ">
+
+                @using (Html.BeginForm("Index", "Ciclo"))
+                {
+                    <b>Buscar por:</b>
+                    @Html.RadioButton("SearChBy", "Nombre", true) <text>Nombre</text>
+                    @*@Html.RadioButton("SearChBy", "Facultad", true) <text>Facultad</text>*@
+                    @Html.TextBox("search", "", htmlAttributes: new { @class = "w-50 form-control" })<br>
+                    <input type="submit" value="Buscar" class="btn btn-outline-primary" />
+                    @*Creación del boton Imprimir*@
+                    @Html.ActionLink("Detalle", "Reporte", "", new { @class = "btn btn-primary" })
+                }
+            </div>
+        </div>
+       
+        <div class="card-body">
+            <table class="table table-striped table-borded table-hover">
+                <tr>
+                    <th style="text-align:center">
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.Intervalo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cantidad)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cuotas)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Informe)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Concepto1.Nombre)
+                    </th>*@
+                    <th>Acciones</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Intervalo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cuotas)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Informe)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Concepto1.Nombre)
+                        </td>*@
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.IdCiclo }, new {@class="btn btn-warning"})
+                            @*@Html.ActionLink("Details", "Details", new { id = item.IdCiclo }) |
+                            @Html.Actio*@<!--nLink("Delete", "Delete", new { id = item.IdCiclo })
+                        </td>-->
+                    </tr>
+                 }
+
+            </table>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
