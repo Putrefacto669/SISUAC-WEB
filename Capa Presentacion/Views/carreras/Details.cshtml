@@ -1,0 +1,91 @@
+﻿@model CapaPresentación.Carreras
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Carreras</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duracion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duracion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnoCarrera)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnoCarrera)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxAsignaturas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxAsignaturas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Facultad.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Facultad.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoPlanEstudio.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoPlanEstudio.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdCarrera }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
