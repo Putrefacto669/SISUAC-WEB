@@ -1,0 +1,66 @@
+﻿@model  List<Ciudades>
+@{
+    ViewBag.Title = "Reporte";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /* SOLUCIONA PROBLEMA DE SOLAPAMIENTO EN TABLAS <table /> */
+    thead {
+        display: table-header-group
+    }
+
+    tfoot {
+        display: table-row-group
+    }
+
+    tr {
+        page-break-inside: avoid
+    }
+</style>
+<div class="row bg-personal" style="text-align:center">
+
+
+    <div class="image-container">
+        <img src="@Href("~/Resources/Images/american-college-nicaragua-web.png")" style="width:750px">
+        <h1 class="Center">LISTA CIUDADES</h1>
+    </div>
+
+
+    <p class="Salto"></p>
+    @*<table class="table table-striped table-borded table-hover" style="width:90%" align="center">*@
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Códgo</th>
+                <th>Nombre</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var oElement in Model)
+            {
+
+                <tr style="background-color:aliceblue">
+                    <td>@oElement.IdCiudad</td>
+                    <td>@oElement.Nombre</td>
+
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+
+</div>
+@if (!ViewBag.Ispdf)
+ {
+    <p>
+        <a href="@Url.Action("Print", "Ciudades")" class="btn btn-primary">Descargar PDF</a>
+    </p>
+
+ }
+
+@*<script src="js/bootstrap.min.js"></script>*@
+
