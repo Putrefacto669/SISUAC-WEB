@@ -1,0 +1,311 @@
+@model CapaPresentación.Docentes
+
+@{
+    ViewBag.Title = "Editar Docente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+
+                <!-- HEADER MEJORADO -->
+                <div class="card-header bg-warning text-white py-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-edit fa-2x me-3"></i>
+                        <div>
+                            <h3 class="mb-0">Editar Docente</h3>
+                            <small class="opacity-80">Modificar información del docente</small>
+                        </div>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.IdDocente)
+
+                    <div class="card-body p-4">
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <div class="row">
+
+                            <!-- COLUMNA IZQUIERDA -->
+                            <div class="col-md-6">
+                                <!-- Nombres -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Nombres, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        @Html.EditorFor(model => model.Nombres, new { htmlAttributes = new { @class = "form-control", placeholder = "Ej: Juan Carlos" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Apellidos -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Apellidos, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-users"></i></span>
+                                        @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control", placeholder = "Ej: Pérez García" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Cédula -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Cedula, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                        @Html.EditorFor(model => model.Cedula, new { htmlAttributes = new { @class = "form-control", placeholder = "Número de cédula" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Cedula, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Fecha Nacimiento -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.FechaNacimiento, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
+                                        @Html.TextBoxFor(model => model.FechaNacimiento, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Estado Civil -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.EstadoCivil, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-heart"></i></span>
+                                        @Html.DropDownListFor(model => model.EstadoCivil,
+                                            new SelectList(new[] {
+                                                "Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a", "Unión Libre"
+                                            }),
+                                            "Seleccione estado civil...",
+                                            new { @class = "form-control" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.EstadoCivil, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Dirección -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Direccion, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                        @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", placeholder = "Dirección completa" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger small" })
+                                </div>
+                            </div>
+
+                            <!-- COLUMNA DERECHA -->
+                            <div class="col-md-6">
+                                <!-- Fecha Ingreso -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.FechaIngreso, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        @Html.TextBoxFor(model => model.FechaIngreso, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.FechaIngreso, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Especialidad -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Especialidad, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
+                                        @Html.EditorFor(model => model.Especialidad, new { htmlAttributes = new { @class = "form-control", placeholder = "Ej: Matemáticas, Física, etc." } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Especialidad, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Teléfono -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Telefono, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", placeholder = "Ej: 2255-6677" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Celular -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Celular, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                                        @Html.EditorFor(model => model.Celular, new { htmlAttributes = new { @class = "form-control", placeholder = "Ej: 8888-9999" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Celular, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.EMail, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        @Html.EditorFor(model => model.EMail, new { htmlAttributes = new { @class = "form-control", type = "email", placeholder = "ejemplo@correo.com" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.EMail, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Activo - CORREGIDO -->
+                                <div class="form-group mb-3">
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox"
+                                               class="form-check-input"
+                                               id="Activo"
+                                               name="Activo"
+                                               value="true"
+                                               @(Model.Activo.HasValue && Model.Activo.Value ? "checked" : "") />
+                                        <input type="hidden" name="Activo" value="false" />
+                                        <label class="form-check-label fw-bold text-success" for="Activo">
+                                            <i class="fas fa-check-circle me-1"></i> Docente Activo
+                                        </label>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Activo, "", new { @class = "text-danger small" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN ADICIONAL - ANCHO COMPLETO -->
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <!-- Sobre Docente -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.SobreDocente, new { @class = "form-label fw-bold text-primary" })
+                                    @Html.TextAreaFor(model => model.SobreDocente, new { @class = "form-control", rows = 4, placeholder = "Información adicional sobre el docente..." })
+                                    @Html.ValidationMessageFor(model => model.SobreDocente, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Foto -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.Foto, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-camera"></i></span>
+                                        @Html.TextBoxFor(model => model.Foto, new { @class = "form-control", placeholder = "URL de la foto del docente" })
+                                    </div>
+                                    <small class="form-text text-muted">Ingrese una URL válida para la foto</small>
+                                    @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- ID Anterior -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(model => model.IdAnterior, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                        @Html.TextBoxFor(model => model.IdAnterior, new { @class = "form-control", placeholder = "ID anterior del docente (si aplica)" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.IdAnterior, "", new { @class = "text-danger small" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FOOTER MEJORADO -->
+                    <div class="card-footer bg-light py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                @Html.ActionLink("← Volver al Listado", "Index", null, new { @class = "btn btn-outline-secondary" })
+                                @Html.ActionLink("Ver Detalles", "Details", new { id = Model.IdDocente }, new { @class = "btn btn-info ms-2" })
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="reset" class="btn btn-warning">
+                                    <i class="fas fa-undo me-2"></i>Restablecer
+                                </button>
+                                <button type="submit" class="btn btn-success px-4">
+                                    <i class="fas fa-save me-2"></i>Guardar Cambios
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            // Focus en primer campo
+            $('#Nombres').focus();
+
+            // Validación en tiempo real
+            $('.form-control').on('blur', function () {
+                var $field = $(this);
+                if ($field.val().trim() !== '') {
+                    $field.addClass('is-valid');
+                    $field.removeClass('is-invalid');
+                } else {
+                    $field.removeClass('is-valid');
+                }
+            });
+
+            // Formato automático para teléfonos
+            $('#Telefono, #Celular').on('input', function (e) {
+                var value = $(this).val().replace(/\D/g, '');
+                if (value.length > 4) {
+                    value = value.substring(0, 4) + '-' + value.substring(4, 8);
+                }
+                $(this).val(value);
+            });
+        });
+    </script>
+
+    <style>
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            border-bottom: none;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            min-width: 45px;
+            justify-content: center;
+        }
+
+        .btn {
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+        }
+
+        .form-check-input:checked {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .is-valid {
+            border-color: #28a745 !important;
+        }
+
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+    </style>
