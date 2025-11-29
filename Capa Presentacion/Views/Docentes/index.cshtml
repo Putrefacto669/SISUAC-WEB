@@ -1,0 +1,270 @@
+@model IEnumerable<CapaPresentación.Docentes>
+
+@{
+    ViewBag.Title = "Gestión de Docentes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-lg border-0">
+
+        <!-- HEADER MEJORADO -->
+        <div class="card-header bg-primary text-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-chalkboard-teacher fa-2x me-3"></i>
+                    <div>
+                        <h3 class="mb-0">Gestión de Docentes</h3>
+                        <small class="opacity-80">Listado completo de docentes registrados</small>
+                    </div>
+                </div>
+                <div>
+                    <span class="badge bg-light text-primary fs-6">
+                        <i class="fas fa-users me-1"></i> @Model.Count() Docentes
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body p-4">
+
+            <!-- BARRA DE ACCIONES -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex gap-2">
+                    @Html.ActionLink("+ Nuevo Docente", "Create", null, new { @class = "btn btn-success" })
+                    <button class="btn btn-outline-primary" onclick="window.print()">
+                        <i class="fas fa-print me-2"></i>Imprimir
+                    </button>
+                </div>
+
+                <!-- BÚSQUEDA Y FILTROS -->
+                <div class="d-flex gap-2">
+                    <div class="input-group" style="width: 300px;">
+                        <input type="text" class="form-control" placeholder="Buscar docente..." id="searchInput">
+                        <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <select class="form-select" style="width: 150px;" id="statusFilter">
+                        <option value="">Todos</option>
+                        <option value="activo">Activos</option>
+                        <option value="inactivo">Inactivos</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- TABLA MEJORADA -->
+            <div class="table-responsive">
+                <table class="table table-hover table-striped" id="docentesTable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>
+                                <i class="fas fa-user me-1"></i>Docente
+                            </th>
+                            <th>
+                                <i class="fas fa-id-card me-1"></i>Cédula
+                            </th>
+                            <th>
+                                <i class="fas fa-phone me-1"></i>Contacto
+                            </th>
+                            <th>
+                                <i class="fas fa-graduation-cap me-1"></i>Especialidad
+                            </th>
+                            <th>
+                                <i class="fas fa-calendar-alt me-1"></i>Fecha Ingreso
+                            </th>
+                            <th>
+                                <i class="fas fa-circle me-1"></i>Estado
+                            </th>
+                            <th class="text-center">
+                                <i class="fas fa-cogs me-1"></i>Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                         <tr class="docente-row" data-status="@(item.Activo.HasValue && item.Activo.Value ? "activo" : "inactivo")">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-placeholder bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="d-block">@Html.DisplayFor(modelItem => item.Nombres) @Html.DisplayFor(modelItem => item.Apellidos)</strong>
+                                            <small class="text-muted">@Html.DisplayFor(modelItem => item.EMail)</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cedula)
+                                </td>
+                                <td>
+                                    <div>
+                                        <small class="d-block">
+                                            <i class="fas fa-mobile-alt me-1"></i>@Html.DisplayFor(modelItem => item.Celular)
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="fas fa-phone me-1"></i>@Html.DisplayFor(modelItem => item.Telefono)
+                                        </small>
+                                    </div>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Especialidad)
+                                </td>
+                                <td>
+                                    <small>@Html.DisplayFor(modelItem => item.FechaIngreso)</small>
+                                </td>
+                                <td>
+                                    <span class="badge @(item.Activo.HasValue && item.Activo.Value ? "bg-success" : "bg-secondary")">
+                                        <i class="fas @(item.Activo.HasValue && item.Activo.Value ? "fa-check-circle" : "fa-times-circle") me-1"></i>
+                                        @(item.Activo.HasValue && item.Activo.Value ? "Activo" : "Inactivo")
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-1">
+                                        <!-- BOTÓN DETALLES -->
+                                        @Html.ActionLink(" ", "Details", new { id = item.IdDocente },
+                                        new
+                                             {
+                                        @class = "btn btn-info btn-sm action-btn",
+                                         title = "Ver detalles",
+                                         data_bs_toggle = "tooltip",
+                                         data_bs_placement = "top"
+                                         })
+
+                                        <!-- BOTÓN EDITAR -->
+                                        @Html.ActionLink(" ", "Edit", new { id = item.IdDocente },
+                                        new
+                                             {
+                                        @class = "btn btn-warning btn-sm action-btn",
+                                        title = "Editar",
+                                        data_bs_toggle = "tooltip",
+                                        data_bs_placement = "top"
+                                        })
+
+                                        <!-- BOTÓN ELIMINAR -->
+                                        @Html.ActionLink(" ", "Delete", new { id = item.IdDocente },
+                                        new {
+                                        @class = "btn btn-danger btn-sm action-btn",
+                                        title = "Eliminar",
+                                        data_bs_toggle = "tooltip",
+                                        data_bs_placement = "top"
+                                        })
+                                    </div>
+                                </td>
+                                
+                            </tr>
+                         }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PIE DE TABLA -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="text-muted">
+                    Mostrando <strong>@Model.Count()</strong> docentes registrados
+                </div>
+                <div>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="exportToExcel()">
+                        <i class="fas fa-download me-1"></i>Exportar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Inicializar tooltips
+            $('[data-bs-toggle="tooltip"]').tooltip();
+
+            // Búsqueda en tiempo real
+            $('#searchInput').on('keyup', function () {
+                var value = $(this).val().toLowerCase();
+                $('#docentesTable tbody tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+            // Filtro por estado
+            $('#statusFilter').on('change', function () {
+                var status = $(this).val();
+                if (status === '') {
+                    $('.docente-row').show();
+                } else {
+                    $('.docente-row').hide();
+                    $('.docente-row[data-status="' + status + '"]').show();
+                }
+            });
+
+            // Botón de búsqueda
+            $('#searchButton').on('click', function () {
+                $('#searchInput').trigger('keyup');
+            });
+        });
+
+        function exportToExcel() {
+            // Simulación de exportación a Excel
+            alert('Funcionalidad de exportación a Excel - Próximamente');
+        }
+    </script>
+
+    <style>
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            border-bottom: none;
+        }
+
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            background: #2c3e50;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+            transform: translateY(-1px);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .avatar-placeholder {
+            font-size: 0.8rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.35em 0.65em;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+        }
+
+            .btn-success:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+            }
+
+        .table-responsive {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    </style>
