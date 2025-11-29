@@ -27,12 +27,14 @@ namespace CapaPresentación.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Docentes docentes = db.Docentes.Find(id);
-            if (docentes == null)
+            
+            Docentes docente = db.Docentes.Find(id);
+            if (docente == null)
             {
                 return HttpNotFound();
             }
-            return View(docentes);
+            
+            return View(docente);
         }
 
         // GET: Docentes/Create
@@ -42,20 +44,27 @@ namespace CapaPresentación.Controllers
         }
 
         // POST: Docentes/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdDocente,Nombres,Apellidos,Direccion,Telefono,Celular,EMail,Cedula,FechaNacimiento,EstadoCivil,FechaIngreso,Foto,SobreDocente,Especialidad,Activo,IdAnterior")] Docentes docentes)
+        public ActionResult Create([Bind(Include = "Nombres,Apellidos,Direccion,Telefono,Celular,EMail,Cedula,FechaNacimiento,EstadoCivil,FechaIngreso,Foto,SobreDocente,Especialidad,Activo")] Docentes docente)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Docentes.Add(docentes);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Docentes.Add(docente);
+                    db.SaveChanges();
+                    
+                    TempData["SuccessMessage"] = "Docente creado exitosamente.";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al crear el docente: " + ex.Message);
             }
 
-            return View(docentes);
+            return View(docente);
         }
 
         // GET: Docentes/Edit/5
@@ -65,28 +74,38 @@ namespace CapaPresentación.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Docentes docentes = db.Docentes.Find(id);
-            if (docentes == null)
+            
+            Docentes docente = db.Docentes.Find(id);
+            if (docente == null)
             {
                 return HttpNotFound();
             }
-            return View(docentes);
+            
+            return View(docente);
         }
 
         // POST: Docentes/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdDocente,Nombres,Apellidos,Direccion,Telefono,Celular,EMail,Cedula,FechaNacimiento,EstadoCivil,FechaIngreso,Foto,SobreDocente,Especialidad,Activo,IdAnterior")] Docentes docentes)
+        public ActionResult Edit([Bind(Include = "IdDocente,Nombres,Apellidos,Direccion,Telefono,Celular,EMail,Cedula,FechaNacimiento,EstadoCivil,FechaIngreso,Foto,SobreDocente,Especialidad,Activo")] Docentes docente)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(docentes).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(docente).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    
+                    TempData["SuccessMessage"] = "Docente actualizado exitosamente.";
+                    return RedirectToAction("Index");
+                }
             }
-            return View(docentes);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error al actualizar el docente: " + ex.Message);
+            }
+
+            return View(docente);
         }
 
         // GET: Docentes/Delete/5
@@ -96,12 +115,14 @@ namespace CapaPresentación.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Docentes docentes = db.Docentes.Find(id);
-            if (docentes == null)
+            
+            Docentes docente = db.Docentes.Find(id);
+            if (docente == null)
             {
                 return HttpNotFound();
             }
-            return View(docentes);
+            
+            return View(docente);
         }
 
         // POST: Docentes/Delete/5
@@ -109,9 +130,24 @@ namespace CapaPresentación.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Docentes docentes = db.Docentes.Find(id);
-            db.Docentes.Remove(docentes);
-            db.SaveChanges();
+            try
+            {
+                Docentes docente = db.Docentes.Find(id);
+                if (docente == null)
+                {
+                    return HttpNotFound();
+                }
+
+                db.Docentes.Remove(docente);
+                db.SaveChanges();
+                
+                TempData["SuccessMessage"] = "Docente eliminado exitosamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error al eliminar el docente: " + ex.Message;
+            }
+
             return RedirectToAction("Index");
         }
 
