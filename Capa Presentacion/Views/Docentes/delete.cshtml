@@ -1,0 +1,269 @@
+@model CapaPresentación.Docentes
+
+@{
+    ViewBag.Title = "Eliminar Docente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+
+                <!-- HEADER DE ELIMINACIÓN -->
+                <div class="card-header bg-danger text-white py-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
+                        <div>
+                            <h3 class="mb-0">Eliminar Docente</h3>
+                            <small class="opacity-80">Confirmar eliminación permanente</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <!-- ALERTA DE ADVERTENCIA -->
+                    <div class="alert alert-warning" role="alert">
+                        <h4 class="alert-heading">
+                            <i class="fas fa-exclamation-circle me-2"></i>¿Está seguro que desea eliminar este docente?
+                        </h4>
+                        <p class="mb-0">Esta acción no se puede deshacer. Se eliminarán permanentemente todos los datos del docente.</p>
+                    </div>
+
+                    <!-- INFORMACIÓN DEL DOCENTE -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-section">
+                                <h5 class="text-primary mb-3">
+                                    <i class="fas fa-user-circle me-2"></i>Información Personal
+                                </h5>
+
+                                <div class="info-item mb-2">
+                                    <strong>Nombres:</strong>
+                                    <span class="text-muted">@Html.DisplayFor(model => model.Nombres)</span>
+                                </div>
+
+                                <div class="info-item mb-2">
+                                    <strong>Apellidos:</strong>
+                                    <span class="text-muted">@Html.DisplayFor(model => model.Apellidos)</span>
+                                </div>
+
+                                <div class="info-item mb-2">
+                                    <strong>Cédula:</strong>
+                                    <span class="text-muted">@Html.DisplayFor(model => model.Cedula)</span>
+                                </div>
+
+                                <div class="info-item mb-2">
+                                    <strong>Fecha Nacimiento:</strong>
+                                    <span class="text-muted">@Html.DisplayFor(model => model.FechaNacimiento)</span>
+                                </div>
+
+                                <div class="info-item mb-2">
+                                    <strong>Estado Civil:</strong>
+                                    <span class="text-muted">@Html.DisplayFor(model => model.EstadoCivil)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="info-section">
+                                <h5 class="text-primary mb-3">
+                                    <i class="fas fa-briefcase me-2"></i>Información Laboral
+                                </h5>
+
+                                <div class="info-item mb-2">
+                                    <strong>Fecha Ingreso:</strong>
+                                    <span class="text-muted">@Html.DisplayFor(model => model.FechaIngreso)</span>
+                                </div>
+
+                                <div class="info-item mb-2">
+                                    <strong>Especialidad:</strong>
+                                    <span class="text-muted">@Html.DisplayFor(model => model.Especialidad)</span>
+                                </div>
+
+                                <!-- ✅ CORREGIDO: Manejo de bool? -->
+                                <div class="info-item mb-2">
+                                    <strong>Estado:</strong>
+                                    <span class="badge @(Model.Activo.HasValue && Model.Activo.Value ? "bg-success" : "bg-secondary")">
+                                        @(Model.Activo.HasValue && Model.Activo.Value ? "Activo" : "Inactivo")
+                                    </span>
+                                </div>
+
+                                <!-- ✅ CORREGIDO: Manejo de int? -->
+                                <div class="info-item mb-2">
+                                    <strong>ID Anterior:</strong>
+                                    <span class="text-muted">
+                                        @(Model.IdAnterior.HasValue ? Model.IdAnterior.Value.ToString() : "N/A")
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INFORMACIÓN DE CONTACTO -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="info-section">
+                                <h5 class="text-primary mb-3">
+                                    <i class="fas fa-address-book me-2"></i>Información de Contacto
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="info-item mb-2">
+                                            <strong>Dirección:</strong>
+                                            <span class="text-muted">@Html.DisplayFor(model => model.Direccion)</span>
+                                        </div>
+
+                                        <div class="info-item mb-2">
+                                            <strong>Teléfono:</strong>
+                                            <span class="text-muted">@Html.DisplayFor(model => model.Telefono)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="info-item mb-2">
+                                            <strong>Celular:</strong>
+                                            <span class="text-muted">@Html.DisplayFor(model => model.Celular)</span>
+                                        </div>
+
+                                        <div class="info-item mb-2">
+                                            <strong>Email:</strong>
+                                            <span class="text-muted">@Html.DisplayFor(model => model.EMail)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INFORMACIÓN ADICIONAL -->
+                    <!-- ✅ CORREGIDO: Usar DisplayFor en lugar de acceso directo -->
+                    @if (!string.IsNullOrEmpty(Model.SobreDocente))
+                    {
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="info-section">
+                                    <h5 class="text-primary mb-3">
+                                        <i class="fas fa-info-circle me-2"></i>Información Adicional
+                                    </h5>
+                                    <div class="info-content bg-light p-3 rounded">
+                                        @Html.DisplayFor(model => model.SobreDocente)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- ✅ CORREGIDO: Verificar si Foto tiene datos antes de mostrar -->
+                    @if (Model.Foto != null && Model.Foto.Length > 0)
+                    {
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="info-section">
+                                    <h5 class="text-primary mb-3">
+                                        <i class="fas fa-camera me-2"></i>Foto
+                                    </h5>
+                                    <div class="text-muted">
+                                        <small>Imagen almacenada (@Model.Foto.Length bytes)</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+                <!-- FORMULARIO DE ELIMINACIÓN -->
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="card-footer bg-light py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                @Html.ActionLink("← Volver al Listado", "Index", null, new { @class = "btn btn-outline-secondary" })
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-info" onclick="history.back()">
+                                    <i class="fas fa-arrow-left me-2"></i>Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-danger px-4">
+                                    <i class="fas fa-trash-alt me-2"></i>Eliminar Permanentemente
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Confirmación adicional antes de eliminar
+        $(document).ready(function () {
+            $('form').on('submit', function (e) {
+                var confirmed = confirm('⚠️ ADVERTENCIA CRÍTICA\n\n¿Está ABSOLUTAMENTE seguro de eliminar al docente:\n\n"@Model.Nombres @Model.Apellidos"\n\n❌ Esta acción NO se puede deshacer.\n📝 Todos los datos se perderán permanentemente.');
+
+                if (!confirmed) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Mostrar loading al confirmar
+                $('button[type="submit"]').html('<i class="fas fa-spinner fa-spin me-2"></i>Eliminando...').prop('disabled', true);
+            });
+        });
+    </script>
+
+    <style>
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            border-bottom: none;
+        }
+
+        .info-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between; 
+            border-bottom: 1px solid #e9ecef;
+            padding: 8px 0;
+        }
+
+            .info-item strong {
+                min-width: 140px;
+                color: #495057;
+            }
+
+        .info-content {
+            border-left: 4px solid #007bff;
+            background: white !important;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border: none;
+        }
+
+            .btn-danger:hover {
+                background: linear-gradient(135deg, #c82333, #a71e2a);
+                transform: translateY(-1px);
+            }
+
+        .alert-warning {
+            border-left: 4px solid #ffc107;
+        }
+    </style>
