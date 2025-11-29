@@ -1,0 +1,251 @@
+@model CapaPresentación.Docentes
+
+@{
+    ViewBag.Title = "Detalles del Docente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+
+                <!-- HEADER MEJORADO -->
+                <div class="card-header bg-info text-white py-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-chalkboard-teacher fa-2x me-3"></i>
+                            <div>
+                                <h3 class="mb-0">Detalles del Docente</h3>
+                                <small class="opacity-80">Información completa del docente</small>
+                            </div>
+                        </div>
+                        <span class="badge @(Model.Activo.HasValue && Model.Activo.Value ? "bg-success" : "bg-secondary") fs-6">
+                            @(Model.Activo.HasValue && Model.Activo.Value ? "Activo" : "Inactivo")
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-body p-4">
+                    <div class="row">
+
+                        <!-- COLUMNA IZQUIERDA - INFORMACIÓN PERSONAL -->
+                        <div class="col-md-6">
+                            <div class="info-section mb-4">
+                                <h5 class="text-primary mb-3 border-bottom pb-2">
+                                    <i class="fas fa-user-circle me-2"></i>Información Personal
+                                </h5>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Nombres:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.Nombres)</div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Apellidos:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.Apellidos)</div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Cédula:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.Cedula)</div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Fecha de Nacimiento:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.FechaNacimiento)</div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Estado Civil:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.EstadoCivil)</div>
+                                </div>
+                            </div>
+
+                            <!-- INFORMACIÓN DE CONTACTO -->
+                            <div class="info-section">
+                                <h5 class="text-primary mb-3 border-bottom pb-2">
+                                    <i class="fas fa-address-book me-2"></i>Información de Contacto
+                                </h5>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Dirección:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.Direccion)</div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Teléfono:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.Telefono)</div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Celular:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.Celular)</div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Email:</label>
+                                    <div class="info-value">
+                                        <a href="mailto:@Model.EMail" class="text-decoration-none">
+                                            @Html.DisplayFor(model => model.EMail)
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COLUMNA DERECHA - INFORMACIÓN LABORAL -->
+                        <div class="col-md-6">
+                            <div class="info-section mb-4">
+                                <h5 class="text-primary mb-3 border-bottom pb-2">
+                                    <i class="fas fa-briefcase me-2"></i>Información Laboral
+                                </h5>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Fecha de Ingreso:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.FechaIngreso)</div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Especialidad:</label>
+                                    <div class="info-value">@Html.DisplayFor(model => model.Especialidad)</div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">Estado:</label>
+                                    <div class="info-value">
+                                        <span class="badge @(Model.Activo.HasValue && Model.Activo.Value ? "bg-success" : "bg-secondary")">
+                                            @(Model.Activo.HasValue && Model.Activo.Value ? "Activo" : "Inactivo")
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="info-item mb-3">
+                                    <label class="fw-bold text-secondary">ID Anterior:</label>
+                                    <div class="info-value">
+                                        @(Model.IdAnterior.HasValue ? Model.IdAnterior.Value.ToString() : "N/A")
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FOTO (si existe) -->
+                            @if (Model.Foto != null && Model.Foto.Length > 0)
+                            {
+                                <div class="info-section mb-4">
+                                    <h5 class="text-primary mb-3 border-bottom pb-2">
+                                        <i class="fas fa-camera me-2"></i>Foto
+                                    </h5>
+                                    <div class="text-center">
+                                        <div class="photo-placeholder bg-light rounded p-4">
+                                            <i class="fas fa-image fa-3x text-muted mb-2"></i>
+                                            <div class="text-muted">Imagen almacenada</div>
+                                            <small class="text-muted">(@Model.Foto.Length bytes)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- SOBRE EL DOCENTE (si existe) -->
+                    @if (!string.IsNullOrEmpty(Model.SobreDocente))
+                    {
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="info-section">
+                                    <h5 class="text-primary mb-3 border-bottom pb-2">
+                                        <i class="fas fa-info-circle me-2"></i>Sobre el Docente
+                                    </h5>
+                                    <div class="info-content bg-light p-4 rounded">
+                                        <p class="mb-0">@Html.DisplayFor(model => model.SobreDocente)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- FOOTER CON BOTONES -->
+                <div class="card-footer bg-light py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            @Html.ActionLink("← Volver al Listado", "Index", null, new { @class = "btn btn-outline-secondary" })
+                        </div>
+                        <div class="d-flex gap-2">
+                            @Html.ActionLink("Editar", "Edit", new { id = Model.IdDocente }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Eliminar", "Delete", new { id = Model.IdDocente }, new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        border-bottom: none;
+    }
+
+    .info-section {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .info-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .info-item label {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+    .info-value {
+        font-size: 1.1rem;
+        color: #495057;
+        padding: 8px 12px;
+        background: white;
+        border-radius: 6px;
+        border-left: 4px solid #007bff;
+    }
+
+    .info-content {
+        border-left: 4px solid #17a2b8;
+        background: white !important;
+    }
+
+    .photo-placeholder {
+        border: 2px dashed #dee2e6;
+        transition: all 0.3s ease;
+    }
+
+        .photo-placeholder:hover {
+            border-color: #007bff;
+            background: #e7f3ff;
+        }
+
+    .btn {
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 8px 20px;
+    }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #ffc107, #e0a800);
+        border: none;
+        color: white;
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        border: none;
+    }
