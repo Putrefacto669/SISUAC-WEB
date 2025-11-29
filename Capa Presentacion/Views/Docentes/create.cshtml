@@ -1,0 +1,290 @@
+@model CapaPresentación.Docentes
+
+@{
+    ViewBag.Title = "Registrar Docente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+
+                <!-- HEADER MEJORADO -->
+                <div class="card-header bg-gradient-primary text-white py-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-chalkboard-teacher fa-2x me-3"></i>
+                        <div>
+                            <h3 class="mb-0">Registro de Docentes</h3>
+                            <small class="opacity-80">Complete la información del docente</small>
+                        </div>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="card-body p-4">
+
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <div class="row">
+
+                            <!-- COLUMNA IZQUIERDA -->
+                            <div class="col-md-6">
+                                <!-- Nombres -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Nombres, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control", placeholder = "Ej: Juan Carlos", maxlength = "50" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Nombres, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Apellidos -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Apellidos, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-users"></i></span>
+                                        @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", placeholder = "Ej: Pérez García", maxlength = "50" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Apellidos, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Dirección -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Direccion, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                        @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control", placeholder = "Dirección completa", maxlength = "200" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Teléfono -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Telefono, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", placeholder = "Ej: 2255-6677" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Celular -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Celular, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                                        @Html.TextBoxFor(m => m.Celular, new { @class = "form-control", placeholder = "Ej: 8888-9999", maxlength = "15" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Celular, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.EMail, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        @Html.TextBoxFor(m => m.EMail, new { @class = "form-control", type = "email", placeholder = "ejemplo@correo.com", maxlength = "100" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.EMail, "", new { @class = "text-danger small" })
+                                </div>
+                            </div>
+
+                            <!-- COLUMNA DERECHA -->
+                            <div class="col-md-6">
+                                <!-- Cédula -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Cedula, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                        @Html.TextBoxFor(m => m.Cedula, new { @class = "form-control", placeholder = "Número de cédula", maxlength = "20" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Cedula, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Fecha Nacimiento -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.FechaNacimiento, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-birthday-cake"></i></span>
+                                        @Html.TextBoxFor(m => m.FechaNacimiento, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.FechaNacimiento, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Estado Civil -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.EstadoCivil, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-heart"></i></span>
+                                        @Html.DropDownListFor(m => m.EstadoCivil,
+                                            new SelectList(new[] {
+                                                "Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a", "Unión Libre"
+                                            }),
+                                            "Seleccione estado civil...",
+                                            new { @class = "form-control" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.EstadoCivil, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Fecha Ingreso -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.FechaIngreso, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        @Html.TextBoxFor(m => m.FechaIngreso, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.FechaIngreso, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Especialidad -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Especialidad, new { @class = "form-label fw-bold text-primary" })
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
+                                        @Html.TextBoxFor(m => m.Especialidad, new { @class = "form-control", placeholder = "Ej: Matemáticas, Física, etc.", maxlength = "100" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Especialidad, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Activo - SIMPLIFICADO Y CORREGIDO -->
+                                <div class="form-group mb-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="Activo" name="Activo" value="true"
+                                               @(Model?.Activo == true ? "checked" : "") />
+                                        <input type="hidden" name="Activo" value="false" />
+                                        <label class="form-check-label fw-bold text-success" for="Activo">
+                                            <i class="fas fa-check-circle me-1"></i> Docente Activo
+                                        </label>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.Activo, "", new { @class = "text-danger small" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN ADICIONAL -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <!-- Sobre Docente -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.SobreDocente, new { @class = "form-label fw-bold text-primary" })
+                                    @Html.TextAreaFor(m => m.SobreDocente, new { @class = "form-control", rows = 4, placeholder = "Información adicional sobre el docente...", maxlength = "500" })
+                                    <small class="form-text text-muted">Máximo 500 caracteres</small>
+                                    @Html.ValidationMessageFor(m => m.SobreDocente, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- Foto -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.Foto, new { @class = "form-label fw-bold text-primary" })
+                                    @Html.TextBoxFor(m => m.Foto, new { @class = "form-control", placeholder = "URL de la foto del docente" })
+                                    <small class="form-text text-muted">Ingrese una URL válida para la foto</small>
+                                    @Html.ValidationMessageFor(m => m.Foto, "", new { @class = "text-danger small" })
+                                </div>
+
+                                <!-- ID Anterior -->
+                                <div class="form-group mb-3">
+                                    @Html.LabelFor(m => m.IdAnterior, new { @class = "form-label fw-bold text-primary" })
+                                    @Html.TextBoxFor(m => m.IdAnterior, new { @class = "form-control", placeholder = "ID anterior del docente (si aplica)" })
+                                    @Html.ValidationMessageFor(m => m.IdAnterior, "", new { @class = "text-danger small" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- FOOTER -->
+                    <div class="card-footer bg-light py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                @Html.ActionLink("← Volver al Listado", "Index", null, new { @class = "btn btn-outline-secondary" })
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="reset" class="btn btn-warning">
+                                    <i class="fas fa-undo me-2"></i>Limpiar
+                                </button>
+                                <button type="submit" class="btn btn-success px-4">
+                                    <i class="fas fa-save me-2"></i>Guardar Docente
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <!-- ✅ JAVASCRIPT SIMPLIFICADO Y CORREGIDO -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Focus en primer campo
+            $('#Nombres').focus();
+
+            // Validación básica sin errores de tipos
+            $('.form-control').on('blur', function () {
+                var $field = $(this);
+                if ($field.val().trim() !== '') {
+                    $field.addClass('is-valid');
+                    $field.removeClass('is-invalid');
+                } else {
+                    $field.removeClass('is-valid');
+                }
+            });
+
+            // Contador de caracteres simplificado
+            $('#SobreDocente').on('input', function () {
+                var maxLength = 500;
+                var currentLength = $(this).val().length;
+                var remaining = maxLength - currentLength;
+
+                // Mostrar contador
+                var counterText = remaining + ' caracteres restantes';
+                $(this).next('.form-text').text(counterText);
+            });
+        });
+    </script>
+
+    <style>
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border-bottom: none;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+
+        .btn {
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .is-valid {
+            border-color: #28a745 !important;
+        }
+    </style>
+}
